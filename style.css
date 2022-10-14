@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(53, 103, 179);
+    background-color: rgb(18, 17, 17);
     text-align: center;
     display: flex;
     justify-content: center;
@@ -9,18 +9,19 @@ body {
     letter-spacing: 3px;
     font-size: 20px;
     color: white;
+}
 
-    
-    /* font-stretch: "expanded"; */
+#game {
     
 }
 
  #gameState1 {
+    padding-top: 30px;
+    margin-top: 30px;
     background-color: rgb(0, 0, 0);
     border-style: solid;
-    width: 400px;
-    height: 700px;
-    
-    
+    width: 600px;
+    height: 900px;
+    background-image: url("images/Menu_Background.png");
 } 
 
