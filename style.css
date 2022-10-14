@@ -20,17 +20,18 @@ body {
     height: 900px;
     background-image: url("images/Menu_Background.png");
     background-size: 600px 930px;
-    display: none;
+    
 } 
 
 #gameState2 {
-    padding-top: 30px;
+    /* padding-top: 30px; */
     margin-top: 30px;
     border-style: groove;
-    width: 600px;
-    height: 900px;
-    background-image: url("images/Background01.png");
-    background-size: 600px 930px;
+    /* width: 600px;
+    height: 900px; */
+    /* background-image: url("images/Background01.png"); */
+    /* background-size: 600px 930px; */
+    display: none;
 }
 
 .playBtn {
