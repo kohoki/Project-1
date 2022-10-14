@@ -23,7 +23,7 @@ let isShipGoingLeft = false;
 let isShipGoingRight = false;
 let isShipGoingUp = false;
 let isShipGoingDown = false;
-// let afterBurner = false;
+
 
 let shipSpeed = 1.5;
 
@@ -31,9 +31,23 @@ let animationFrameId = 0;
 let gameOver = false;
 
 function animate(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-    ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
+    if (isShipGoingUp)
+    {
+        if(shipY > 0)
+        {
+            shipY -=  shipSpeed;
+            ctx.drawImage(burner, shipX + 25 , shipY + shipWidth, shipWidth/2, shipHeight/2);
+        }
+    }
+    else if (isShipGoingDown)
+    {
+        if(shipY < canvas.height - shipHeight)
+        {
+            shipY +=  shipSpeed;
+        }
+    }
     
     if (isShipGoingLeft) {
         if (shipX > 0) {
@@ -49,24 +63,11 @@ function animate(){
             ship.src = "../images/Spaceship_right.png";
         }
     }
-    else if (isShipGoingUp)
-    {
-        if(shipY > 0)
-        {
-            shipY -=  shipSpeed;
-            ctx.drawImage(burner, shipX + 25 , shipY + shipWidth, shipWidth/2, shipHeight/2);
-        }
-    }
-    else if (isShipGoingDown)
-    {
-        if(shipY < canvas.height - shipHeight)
-        {
-            shipY +=  shipSpeed;
-        }
-    }
     else if (!isShipGoingLeft) {
         ship.src = "../images/Spaceship.png";
     }
+
+    ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
     
 
 
@@ -89,28 +90,34 @@ function startGame() {
     startGame();
     };
     document.addEventListener("keydown", event => {
-        if (event.code === "KeyW") {
+        if (event.code === "KeyW" || event.code === "ArrowUp") {
             isShipGoingUp = true;    
         }
-        if (event.code === "KeyS") {
+        if (event.code === "KeyS"|| event.code === "ArrowDown") {
             isShipGoingDown = true;    
         }
-        if (event.code === "KeyA") {
+        if (event.code === "KeyA" || event.code === "ArrowLeft") {
             isShipGoingLeft = true;    
         }
-        if (event.code === "KeyD"){
+        if (event.code === "KeyD" || event.code === "ArrowRight"){
             isShipGoingRight = true;
         }
         
       });
       
       document.addEventListener("keyup", event => {
-        isShipGoingUp = false;
-        isShipGoingLeft = false;
-        isShipGoingRight = false;
-        isShipGoingDown = false;
+        if (event.code === "KeyW" || event.code === "ArrowUp") {
+            isShipGoingUp = false;    
+        }
+        if (event.code === "KeyS"|| event.code === "ArrowDown") {
+            isShipGoingDown = false;    
+        }
+        if (event.code === "KeyA" || event.code === "ArrowLeft") {
+            isShipGoingLeft = false;    
+        }
+        if (event.code === "KeyD" || event.code === "ArrowRight"){
+            isShipGoingRight = false;
+        }
+
       });
   };
-
-
-
