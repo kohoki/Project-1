@@ -10,10 +10,11 @@ const background = new Image();
 background.src = "../images/Background01.png"
 
 
+
 function startGame() {
     gameState1.style.display = "none";
     gameState2.style.display = "block";
-    // animate()
+    //animate();
   };
 
 

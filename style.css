@@ -12,14 +12,13 @@ body {
 }
 
  #gameState1 {
-    padding-top: 30px;
     margin-top: 30px;
     background-color: rgb(0, 0, 0);
     border-style: groove;
     width: 600px;
     height: 900px;
     background-image: url("images/Menu_Background.png");
-    background-size: 600px 930px;
+    background-size: 600px 900px;
     
 } 
 
