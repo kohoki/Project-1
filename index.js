@@ -17,6 +17,10 @@ let shipHeight = 110;
 let shipX = canvas.width / 2;
 let shipY = canvas.height - shipHeight;
 let isShipGoingLeft = false;
+let isShipGoingRight = false;
+let isShipGoingUp = false;
+let isShipGoingDown = false;
+
 let shipSpeed = 1.5;
 
 let animationFrameId = 0;
@@ -30,7 +34,29 @@ function animate(){
         if (shipX > 0) {
             shipX -=  shipSpeed;
         }
-      };
+    }
+    else if (isShipGoingRight)
+    {
+        if(shipX < canvas.width - shipWidth)
+        {
+            shipX +=  shipSpeed;
+        }
+    }
+    else if (isShipGoingUp)
+    {
+        if(shipY > 0)
+        {
+            shipY -=  shipSpeed;
+        }
+    }
+    else if (isShipGoingDown)
+    {
+        if(shipY < canvas.height - shipHeight)
+        {
+            shipY +=  shipSpeed;
+        }
+    }
+
 
       if (gameOver) {
         cancelAnimationFrame(animationFrameId);
@@ -51,15 +77,26 @@ function startGame() {
     startGame();
     };
     document.addEventListener("keydown", event => {
-        if (event.code === "ArrowLeft") {
-            isShipGoingLeft = true;
-            console.log(isShipGoingLeft);
+        if (event.code === "KeyW") {
+            isShipGoingUp = true;    
+        }
+        if (event.code === "KeyS") {
+            isShipGoingDown = true;    
+        }
+        if (event.code === "KeyA") {
+            isShipGoingLeft = true;    
+        }
+        if (event.code === "KeyD"){
+            isShipGoingRight = true;
         }
         
       });
       
       document.addEventListener("keyup", event => {
+        isShipGoingUp = false;
         isShipGoingLeft = false;
+        isShipGoingRight = false;
+        isShipGoingDown = false;
       });
   };
 
