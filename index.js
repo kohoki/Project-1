@@ -11,7 +11,10 @@ background.src = "../images/Background01.png"
 
 // gamer
 const ship = new Image();
-ship.src = "../images/Spaceship.png"
+ship.src = "../images/Spaceship.png";
+const burner = new Image();
+burner.src = "../images/Thruster_01.png";
+
 let shipWidth = 100;
 let shipHeight = 110;
 let shipX = canvas.width / 2;
@@ -20,6 +23,7 @@ let isShipGoingLeft = false;
 let isShipGoingRight = false;
 let isShipGoingUp = false;
 let isShipGoingDown = false;
+// let afterBurner = false;
 
 let shipSpeed = 1.5;
 
@@ -30,9 +34,11 @@ function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
+    
     if (isShipGoingLeft) {
         if (shipX > 0) {
             shipX -=  shipSpeed;
+            ship.src = "../images/Spaceship_left.png";
         }
     }
     else if (isShipGoingRight)
@@ -40,6 +46,7 @@ function animate(){
         if(shipX < canvas.width - shipWidth)
         {
             shipX +=  shipSpeed;
+            ship.src = "../images/Spaceship_right.png";
         }
     }
     else if (isShipGoingUp)
@@ -47,6 +54,7 @@ function animate(){
         if(shipY > 0)
         {
             shipY -=  shipSpeed;
+            ctx.drawImage(burner, shipX + 25 , shipY + shipWidth, shipWidth/2, shipHeight/2);
         }
     }
     else if (isShipGoingDown)
@@ -56,6 +64,10 @@ function animate(){
             shipY +=  shipSpeed;
         }
     }
+    else if (!isShipGoingLeft) {
+        ship.src = "../images/Spaceship.png";
+    }
+    
 
 
       if (gameOver) {
