@@ -32,6 +32,21 @@ let gameOver = false;
 let background1Y = 0;
 let background2Y = -canvas.height;
 
+
+
+function health () {
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = "green";
+    ctx.rect(shipX + shipWidth + 5, shipY + 50, 10, 50);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.fillStyle = "green";
+    ctx.fillRect(shipX + shipWidth + 5, shipY + 50, 10, 50);
+    ctx.stroke();
+}
+
 function animate(){
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
@@ -71,6 +86,8 @@ function animate(){
     }
 
     ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
+    health ();
+    
     
     // Sky is moving
     background1Y += 1.5
@@ -88,6 +105,7 @@ function animate(){
       } else {
         animationFrameId = requestAnimationFrame(animate);
       }
+      console.log(animationFrameId);
 }
 
 function startGame() {
