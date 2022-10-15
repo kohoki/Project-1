@@ -29,10 +29,13 @@ let shipSpeed = 1.5;
 
 let animationFrameId = 0;
 let gameOver = false;
+let background1Y = 0;
+let background2Y = -canvas.height;
 
 function animate(){
     //ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
+    ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
     if (isShipGoingUp)
     {
         if(shipY > 0)
@@ -69,6 +72,15 @@ function animate(){
 
     ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
     
+    // Sky is moving
+    background1Y += 1.5
+    background2Y += 1.5
+    if (background1Y > canvas.height) {
+        background1Y = -canvas.height;
+    }
+    if (background2Y > canvas.height) {
+        background2Y = -canvas.height;
+    }
 
 
       if (gameOver) {
