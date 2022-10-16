@@ -9,6 +9,36 @@ const gameState3 = document.querySelector("#gameState3");
 const background = new Image();
 background.src = "../images/Background01.png"
 
+// asteroid
+const asteroid = new Image();
+const asteroidArray =[
+    "../images/asteroid/asteroid_01.png",
+    "../images/asteroid/asteroid_02.png",
+    "../images/asteroid/asteroid_03.png",
+    "../images/asteroid/asteroid_04.png",
+    "../images/asteroid/asteroid_05.png",
+    "../images/asteroid/asteroid_06.png",
+    "../images/asteroid/asteroid_07.png",
+    "../images/asteroid/asteroid_08.png",
+    "../images/asteroid/asteroid_09.png",
+    "../images/asteroid/asteroid_10.png",
+    "../images/asteroid/asteroid_11.png",
+    "../images/asteroid/asteroid_12.png",
+    "../images/asteroid/asteroid_13.png",
+    "../images/asteroid/asteroid_14.png",
+    "../images/asteroid/asteroid_15.png",
+    "../images/asteroid/asteroid_16.png",
+    "../images/asteroid/asteroid_17.png",
+    "../images/asteroid/asteroid_18.png",
+    "../images/asteroid/asteroid_19.png",
+    "../images/asteroid/asteroid_20.png",
+    "../images/asteroid/asteroid_21.png",
+    "../images/asteroid/asteroid_22.png",
+    "../images/asteroid/asteroid_23.png",
+    "../images/asteroid/asteroid_24.png",
+];
+asteroid.src = asteroidArray[0];
+
 // gamer
 const ship = new Image();
 ship.src = "../images/Spaceship.png";
@@ -31,8 +61,10 @@ let animationFrameId = 0;
 let gameOver = false;
 let background1Y = 0;
 let background2Y = -canvas.height;
-
-
+let asteroidX = 100;
+let asteroidY = -70;
+let asteroidSpeed = 1;
+let index = 0;
 
 function health () {
     ctx.beginPath();
@@ -45,6 +77,23 @@ function health () {
     ctx.fillStyle = "green";
     ctx.fillRect(shipX + shipWidth + 5, shipY + 50, 10, 50);
     ctx.stroke();
+}
+
+function drawAsteroid(){
+    ctx.drawImage(asteroid, asteroidX, asteroidY, 60, 60);
+    if (animationFrameId % 13 === 0)
+    {
+        asteroid.src = asteroidArray[index];
+        
+        if(index > 22)
+        {
+              index = 0;
+          }
+        else {
+            index += 1;
+          }   
+    }   
+    asteroidY += asteroidSpeed;
 }
 
 function animate(){
@@ -86,8 +135,10 @@ function animate(){
     }
 
     ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
-    health ();
     
+    health ();
+
+    drawAsteroid()
     
     // Sky is moving
     background1Y += 1.5
@@ -105,7 +156,7 @@ function animate(){
       } else {
         animationFrameId = requestAnimationFrame(animate);
       }
-      console.log(animationFrameId);
+      //console.log(animationFrameId);
 }
 
 function startGame() {
