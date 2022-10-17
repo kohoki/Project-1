@@ -37,7 +37,6 @@ const asteroidArray =[
     "../images/asteroid/asteroid_23.png",
     "../images/asteroid/asteroid_24.png",
 ];
-//asteroid.src = asteroidArray[0];
 
 // gamer
 const ship = new Image();
@@ -61,11 +60,24 @@ let animationFrameId = 0;
 let gameOver = false;
 let background1Y = 0;
 let background2Y = -canvas.height;
+// Asteroids
 let asteroidX = Math.floor(Math.random() * (550 - 10) + 10);
 let asteroidY = -70;
 let asteroidSpeed = 1;
 let indexOfAsteroidsImages = 0;
+let Asteroids = [];
 
+class Asteroid {
+    constructor(){
+        this.x = Math.floor(Math.random() * (550 - 10) + 10);
+        this.y = -70; 
+        this.index = Math.floor(Math.random() * (23 - 0) + 0);
+    }
+    move()
+    {
+        this.y += 1;
+    }
+}
 function health () {
     ctx.beginPath();
     ctx.lineWidth = "2";
@@ -79,25 +91,8 @@ function health () {
     ctx.stroke();
 }
 
-function drawAsteroid(){
-    ctx.drawImage(asteroid, asteroidX, asteroidY, 60, 60);
-    if (animationFrameId % 13 === 0)
-    {
-        asteroid.src = asteroidArray[indexOfAsteroidsImages];
-        
-        if(indexOfAsteroidsImages > 22)
-        {
-            indexOfAsteroidsImages = 0;
-          }
-        else {
-            indexOfAsteroidsImages += 1;
-          }   
-    }   
-    asteroidY += asteroidSpeed;
-}
-
 function animate(){
-    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
     if (isShipGoingUp)
@@ -137,15 +132,22 @@ function animate(){
     ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
     
     health ();
+    let Asteroids2 = Asteroids.filter(element => element.y < canvas.height);
 
-    drawAsteroid();
-    //create asteroids
-    // if(animationFrameId % 30)
-    // {
-    //     let x = 
-    //     let y = asteroidY;
-    // }
-   
+    if(animationFrameId % 200 === 0)
+    {
+        Asteroids2.push(new Asteroid())
+    }
+    
+    Asteroids2.forEach(element => {
+        ctx.drawImage(asteroid, element.x, element.y, 60, 60);
+        asteroid.src = asteroidArray[element.index];
+        element.move();
+    });
+
+    Asteroids = Asteroids2;
+    console.log(Asteroids);
+    
     
     // Sky is moving
     background1Y += 1.5
