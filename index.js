@@ -37,7 +37,7 @@ const asteroidArray =[
     "../images/asteroid/asteroid_23.png",
     "../images/asteroid/asteroid_24.png",
 ];
-asteroid.src = asteroidArray[0];
+//asteroid.src = asteroidArray[0];
 
 // gamer
 const ship = new Image();
@@ -61,10 +61,10 @@ let animationFrameId = 0;
 let gameOver = false;
 let background1Y = 0;
 let background2Y = -canvas.height;
-let asteroidX = 100;
+let asteroidX = Math.floor(Math.random() * (550 - 10) + 10);
 let asteroidY = -70;
 let asteroidSpeed = 1;
-let index = 0;
+let indexOfAsteroidsImages = 0;
 
 function health () {
     ctx.beginPath();
@@ -83,14 +83,14 @@ function drawAsteroid(){
     ctx.drawImage(asteroid, asteroidX, asteroidY, 60, 60);
     if (animationFrameId % 13 === 0)
     {
-        asteroid.src = asteroidArray[index];
+        asteroid.src = asteroidArray[indexOfAsteroidsImages];
         
-        if(index > 22)
+        if(indexOfAsteroidsImages > 22)
         {
-              index = 0;
+            indexOfAsteroidsImages = 0;
           }
         else {
-            index += 1;
+            indexOfAsteroidsImages += 1;
           }   
     }   
     asteroidY += asteroidSpeed;
@@ -138,7 +138,14 @@ function animate(){
     
     health ();
 
-    drawAsteroid()
+    drawAsteroid();
+    //create asteroids
+    // if(animationFrameId % 30)
+    // {
+    //     let x = 
+    //     let y = asteroidY;
+    // }
+   
     
     // Sky is moving
     background1Y += 1.5
