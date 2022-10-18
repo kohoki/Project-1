@@ -80,6 +80,7 @@ class Asteroid {
 // Bullets
 
 let bulletFly = false;
+let reloading = false;
 let bullets = [];
 class Bullet {
     constructor(x,y)
@@ -97,7 +98,7 @@ class Bullet {
     move()
     {   
         this.y = this.y -2; 
-        console.log(this.y)
+        //console.log(this.y)
     }
 
 }
@@ -121,15 +122,16 @@ function animate(){
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
 
     const nextBullet = bullets.filter(element => element.y > 0);
-  //  console.log("bullets",bullets)
- 
-     
+    
+    console.log(reloading);
     if(bulletFly)
     {
-        nextBullet.push(new Bullet(shipX,shipY));   
-        //console.log("nextBullets",nextBullet)
+        setTimeout(()=>{reloading = false}, 200);
+        nextBullet.push(new Bullet(shipX + 50,shipY)); 
+        bulletFly = false; 
+        reloading = true;
     }
-       
+     
     if (isShipGoingUp)
     {
         if(shipY > 0)
@@ -179,7 +181,6 @@ function animate(){
     // HealthBar is created
     healthBar ();
     
-
     // Asteroids
 
     let Asteroids2 = Asteroids.filter(element => element.y < canvas.height);
@@ -239,7 +240,10 @@ function startGame() {
             isShipGoingRight = true;
         }
         if (event.code === "Space"){
-            bulletFly = true;
+            if(!reloading)
+            {
+                bulletFly = true;
+            }
         }
         
       });
@@ -258,9 +262,9 @@ function startGame() {
             
             isShipGoingRight = false;
         }
-           if (event.code === "Space"){
+        if (event.code === "Space"){
                 bulletFly = false;
-         } 
+        } 
 
       });
   };
