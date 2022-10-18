@@ -38,12 +38,11 @@ const asteroidArray =[
     "../images/asteroid/asteroid_24.png",
 ];
 
-// gamer
+// SpaceShip
 const ship = new Image();
 ship.src = "../images/Spaceship.png";
 const burner = new Image();
 burner.src = "../images/Thruster_01.png";
-
 let shipWidth = 100;
 let shipHeight = 110;
 let shipX = canvas.width / 2;
@@ -52,14 +51,16 @@ let isShipGoingLeft = false;
 let isShipGoingRight = false;
 let isShipGoingUp = false;
 let isShipGoingDown = false;
-let spaceShipHealth = 100;
 let shipSpeed = 1.5;
 
+// 
 let animationFrameId = 0;
 let gameOver = false;
 let background1Y = 0;
 let background2Y = -canvas.height;
+
 // Asteroids
+
 let asteroidX = Math.floor(Math.random() * (550 - 10) + 10);
 let asteroidY = -70;
 let asteroidSpeed = 1;
@@ -101,44 +102,98 @@ class Bullet {
     {   
         this.y = this.y -2; 
     }
-
 }
- 
+
+// Score
+let score = 0;
+function drawScore() {
+  ctx.beginPath();
+  ctx.font = "30px Impact";
+  ctx.fillStyle = "white";
+  ctx.fillText(`Score : ${score}`, 20, 40);
+  ctx.closePath();
+};
+
+// Health
+let barHealth = 50;
+let colorBar = "green";
 function healthBar () {
     ctx.beginPath();
     ctx.lineWidth = "2";
-    ctx.strokeStyle = "green";
+    ctx.strokeStyle = colorBar;
     ctx.rect(shipX + shipWidth + 5, shipY + 50, 10, 50);
     ctx.stroke();
 
     ctx.beginPath();
-    ctx.fillStyle = "green";
-    ctx.fillRect(shipX + shipWidth + 5, shipY + 50, 10, 50);
+    ctx.fillStyle = colorBar;
+    ctx.fillRect(shipX + shipWidth + 5, shipY + 50, 10, barHealth);
     ctx.stroke();
+}
+
+// reset all Values
+function setValuesToBegin()
+{
+    shipX = canvas.width / 2;
+    shipY = canvas.height - shipHeight;
+    score = 0;
+    barHealth = 50;
+    animationFrameId = 0;
+    gameOver = false;
+    colorBar = "green";
+    Asteroids = [];
+    bullets = [];
+    shipSpeed = 1.5;
+    asteroidSpeed = 1;
 }
 
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
+    drawScore();
 
     //Check distance between bullet and asteroid and set life to false if needed
-
     bullets.forEach(bullet => {
         Asteroids.forEach(asteroid => {
-            const distance = Math.hypot(asteroid.x - bullet.x, asteroid.y - bullet.y);
-            if (distance < 20)
+            const distance = Math.hypot((asteroid.x + 30) - bullet.x, (asteroid.y + 30) - bullet.y);
+            
+            if (distance < 25)
             {
-                console.log(distance);
                 asteroid.life = false;
                 bullet.life = false;
+                score += 10;
             }
         });
     });
-
+    // Check distance between asteroids and SpaceShip
+    Asteroids.forEach(asteroid => {
+        const distanceShip = Math.hypot((asteroid.x + 30) - (shipX + shipWidth/2) , (asteroid.y + 30) - (shipY + shipHeight/2) );
+            if (distanceShip < 60)
+            {
+                asteroid.life = false;
+                if(barHealth > 0)
+                {
+                    barHealth -= 5;
+                    if(barHealth < 30)
+                    {
+                        colorBar = "yellow";
+                    }
+                    if(barHealth < 15)
+                    {
+                        colorBar = "red";
+                    }
+                    // GameOver
+                    if(barHealth === 0)
+                    {
+                        gameOver = true;
+                    }
+                }
+            }
+    });
+    
 
     const nextBullet = bullets.filter(element => element.y > 0 && element.life);
-    //console.log(reloading);
+    
     if(bulletFly)
     {
         setTimeout(()=>{reloading = false}, 200);
@@ -187,11 +242,9 @@ function animate(){
     nextBullet.forEach(element => {
         element.draw();
         element.move();
-        
         });
 
-    bullets = nextBullet;
-    //console.log(bullets); 
+    bullets = nextBullet; 
 
     // HealthBar is created
     healthBar ();
@@ -222,17 +275,22 @@ function animate(){
     if (background2Y > canvas.height) {
         background2Y = -canvas.height;
     }
-      if (gameOver) {
+    if (gameOver) {
         cancelAnimationFrame(animationFrameId);
-      } else {
+        gameState2.style.display = "none";
+        gameState3.style.display = "block";
+    } 
+    else
+    {
         animationFrameId = requestAnimationFrame(animate);
-      }
-      //console.log(animationFrameId);
+    }
+    
 }
 
 function startGame() {
     gameState1.style.display = "none";
     gameState2.style.display = "block";
+    gameState3.style.display = "none";
     animate();
   };
 
@@ -240,6 +298,10 @@ function startGame() {
   window.onload = () => {
     document.getElementById('playBtn').onclick = () => {
     startGame();
+    };
+    document.getElementById('tryAgainBtn').onclick = () => {
+        setValuesToBegin();
+        startGame();
     };
     document.addEventListener("keydown", event => {
         if (event.code === "KeyW" || event.code === "ArrowUp") {
