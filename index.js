@@ -70,6 +70,7 @@ class Asteroid {
         this.x = Math.floor(Math.random() * (550 - 10) + 10);
         this.y = -70; 
         this.index = Math.floor(Math.random() * (23 - 0) + 0);
+        this.life = true;
     }
     move()
     {
@@ -87,6 +88,7 @@ class Bullet {
     {
         this.x = x;
         this.y = y;
+        this.life = true;
     }
     draw()
     {
@@ -98,7 +100,6 @@ class Bullet {
     move()
     {   
         this.y = this.y -2; 
-        //console.log(this.y)
     }
 
 }
@@ -121,9 +122,23 @@ function animate(){
     ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
 
-    const nextBullet = bullets.filter(element => element.y > 0);
-    
-    console.log(reloading);
+    //Check distance between bullet and asteroid and set life to false if needed
+
+    bullets.forEach(bullet => {
+        Asteroids.forEach(asteroid => {
+            const distance = Math.hypot(asteroid.x - bullet.x, asteroid.y - bullet.y);
+            if (distance < 20)
+            {
+                console.log(distance);
+                asteroid.life = false;
+                bullet.life = false;
+            }
+        });
+    });
+
+
+    const nextBullet = bullets.filter(element => element.y > 0 && element.life);
+    //console.log(reloading);
     if(bulletFly)
     {
         setTimeout(()=>{reloading = false}, 200);
@@ -183,7 +198,7 @@ function animate(){
     
     // Asteroids
 
-    let Asteroids2 = Asteroids.filter(element => element.y < canvas.height);
+    let Asteroids2 = Asteroids.filter(element => element.y < canvas.height && element.life);
 
     if(animationFrameId % 200 === 0)
     {
