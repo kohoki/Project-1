@@ -144,6 +144,25 @@ function setValuesToBegin()
     bullets = [];
     shipSpeed = 1.5;
     asteroidSpeed = 1;
+    startTime = 121;
+}
+
+// timer
+let startTime = 21;
+function drawTimer()
+{
+    ctx.beginPath();
+    ctx.font = "20px Impact";
+    ctx.fillStyle = "white";
+    ctx.fillText(`Timer : ${startTime}s`, canvas.width - 150, 38);
+    ctx.closePath();
+    if(animationFrameId % 100 === 0)
+    {
+        if (startTime > 0)
+        {
+            startTime -= 1;
+        }
+    }
 }
 
 function animate(){
@@ -151,6 +170,7 @@ function animate(){
     ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
     drawScore();
+    drawTimer();
 
     //Check distance between bullet and asteroid and set life to false if needed
     bullets.forEach(bullet => {
@@ -275,6 +295,15 @@ function animate(){
     if (background2Y > canvas.height) {
         background2Y = -canvas.height;
     }
+
+    if(startTime === 0)
+    {
+        cancelAnimationFrame(animationFrameId);
+        gameState2.style.display = "none";
+        gameState4.style.display = "block";
+
+
+    }
     if (gameOver) {
         cancelAnimationFrame(animationFrameId);
         gameState2.style.display = "none";
@@ -291,6 +320,7 @@ function startGame() {
     gameState1.style.display = "none";
     gameState2.style.display = "block";
     gameState3.style.display = "none";
+    gameState4.style.display = "none";
     animate();
   };
 
@@ -300,6 +330,10 @@ function startGame() {
     startGame();
     };
     document.getElementById('tryAgainBtn').onclick = () => {
+        setValuesToBegin();
+        startGame();
+    };
+    document.getElementById('tryAgainBtn2').onclick = () => {
         setValuesToBegin();
         startGame();
     };
