@@ -296,14 +296,7 @@ function animate(){
         background2Y = -canvas.height;
     }
 
-    if(startTime === 0)
-    {
-        cancelAnimationFrame(animationFrameId);
-        gameState2.style.display = "none";
-        gameState4.style.display = "block";
-
-
-    }
+    
     if (gameOver) {
         cancelAnimationFrame(animationFrameId);
         gameState2.style.display = "none";
@@ -312,6 +305,13 @@ function animate(){
     else
     {
         animationFrameId = requestAnimationFrame(animate);
+    }
+
+    if(startTime === 0)
+    {
+        cancelAnimationFrame(animationFrameId);
+        gameState2.style.display = "none"; 
+        gameState4.style.display = "block"; 
     }
     
 }
