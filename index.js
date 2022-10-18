@@ -52,8 +52,7 @@ let isShipGoingLeft = false;
 let isShipGoingRight = false;
 let isShipGoingUp = false;
 let isShipGoingDown = false;
-
-
+let spaceShipHealth = 100;
 let shipSpeed = 1.5;
 
 let animationFrameId = 0;
@@ -64,7 +63,6 @@ let background2Y = -canvas.height;
 let asteroidX = Math.floor(Math.random() * (550 - 10) + 10);
 let asteroidY = -70;
 let asteroidSpeed = 1;
-let indexOfAsteroidsImages = 0;
 let Asteroids = [];
 
 class Asteroid {
@@ -78,7 +76,33 @@ class Asteroid {
         this.y += 1;
     }
 }
-function health () {
+
+// Bullets
+
+let bulletFly = false;
+let bullets = [];
+class Bullet {
+    constructor(x,y)
+    {
+        this.x = x;
+        this.y = y;
+    }
+    draw()
+    {
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, 8, 0, Math.PI *2, false);
+        ctx.fillStyle = "yellow";
+        ctx.fill();
+    }
+    move()
+    {   
+        this.y = this.y -2; 
+        console.log(this.y)
+    }
+
+}
+ 
+function healthBar () {
     ctx.beginPath();
     ctx.lineWidth = "2";
     ctx.strokeStyle = "green";
@@ -95,6 +119,17 @@ function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
+
+    const nextBullet = bullets.filter(element => element.y > 0);
+  //  console.log("bullets",bullets)
+ 
+     
+    if(bulletFly)
+    {
+        nextBullet.push(new Bullet(shipX,shipY));   
+        //console.log("nextBullets",nextBullet)
+    }
+       
     if (isShipGoingUp)
     {
         if(shipY > 0)
@@ -128,10 +163,25 @@ function animate(){
     else if (!isShipGoingLeft) {
         ship.src = "../images/Spaceship.png";
     }
-
+    // Ship is drawing
     ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
+
+    // Bullet draw and move
+    nextBullet.forEach(element => {
+        element.draw();
+        element.move();
+        
+        });
+
+    bullets = nextBullet;
+    //console.log(bullets); 
+
+    // HealthBar is created
+    healthBar ();
     
-    health ();
+
+    // Asteroids
+
     let Asteroids2 = Asteroids.filter(element => element.y < canvas.height);
 
     if(animationFrameId % 200 === 0)
@@ -141,13 +191,11 @@ function animate(){
     
     Asteroids2.forEach(element => {
         ctx.drawImage(asteroid, element.x, element.y, 60, 60);
-        asteroid.src = asteroidArray[element.index];
+        asteroid.src = asteroidArray[1];
         element.move();
     });
 
     Asteroids = Asteroids2;
-    console.log(Asteroids);
-    
     
     // Sky is moving
     background1Y += 1.5
@@ -158,8 +206,6 @@ function animate(){
     if (background2Y > canvas.height) {
         background2Y = -canvas.height;
     }
-
-
       if (gameOver) {
         cancelAnimationFrame(animationFrameId);
       } else {
@@ -192,6 +238,9 @@ function startGame() {
         if (event.code === "KeyD" || event.code === "ArrowRight"){
             isShipGoingRight = true;
         }
+        if (event.code === "Space"){
+            bulletFly = true;
+        }
         
       });
       
@@ -206,8 +255,12 @@ function startGame() {
             isShipGoingLeft = false;    
         }
         if (event.code === "KeyD" || event.code === "ArrowRight"){
+            
             isShipGoingRight = false;
         }
+           if (event.code === "Space"){
+                bulletFly = false;
+         } 
 
       });
   };
