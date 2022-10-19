@@ -84,7 +84,8 @@ burnerBoss.src = "../images/Thruster_boss.png";
 let bossWidth = 120;
 let bossHeight = 130;
 let bossX = canvas.width / 2 - bossWidth/2;
-let bossY = 0;
+let bossY = - 200;
+let BossSpeed = 0.5;
 
 // Health bar Boss
 let bossHealth = 50;
@@ -100,6 +101,63 @@ function healthBarBoss () {
     ctx.fillStyle = colorBarBoss;
     ctx.fillRect(bossX + bossWidth - 5, bossY + 50, 10, bossHealth);
     ctx.stroke();
+}
+let number = 0;
+function moveBoss()
+{
+    if (bossY < 160)
+    {
+        bossY += 0.5;
+    }
+    //move X direction
+    let BossYMiddle = bossY + bossHeight/2;
+    let BossXMiddle = bossX + bossWidth/2;
+    let shipXMiddle = shipX + shipWidth/2;
+
+    let XDistanceShipBoss = BossXMiddle - shipXMiddle;
+    if(XDistanceShipBoss < - 5)
+    {
+        if(BossXMiddle < shipXMiddle)
+        {
+            bossX += BossSpeed;
+        }
+    }
+    if(XDistanceShipBoss > 5)
+    {
+        if(BossXMiddle > shipXMiddle)
+        {
+            bossX -= BossSpeed;
+        }
+    }
+    // move Y direction
+    if(animationFrameId % 150 === 0)
+        {
+            number = Math.floor(Math.random() * (3 - 1) + 1)
+        }
+    console.log(bossY);
+    function moveY(){
+        if(bossY > 80 && bossY < 400)
+        {
+            console.log(number);
+            if(number === 1)
+            {
+                if (bossY > 70)
+                {
+                    bossY -= 1;
+                }
+            }
+            else //if(number === 2)
+            {
+                if (bossY < 390)
+                {
+                    bossY += 1;
+                }
+            }
+        }
+    }
+    setTimeout(moveY(), 200);   
+    
+    
 }
 
 
@@ -222,6 +280,7 @@ function animate(){
     // Boss is drawing
     ctx.drawImage(boss, bossX, bossY, bossWidth, bossWidth);
     healthBarBoss ();
+    moveBoss();
 
     //Check distance between bullet and asteroid and set life to false if needed
     bullets.forEach(bullet => {
