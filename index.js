@@ -110,7 +110,7 @@ function moveBoss()
         bossY += 0.5;
     }
     //move X direction
-    let BossYMiddle = bossY + bossHeight/2;
+    // let BossYMiddle = bossY + bossHeight/2;
     let BossXMiddle = bossX + bossWidth/2;
     let shipXMiddle = shipX + shipWidth/2;
 
@@ -146,18 +146,17 @@ function moveBoss()
                     bossY -= 1;
                 }
             }
-            else //if(number === 2)
+            else 
             {
                 if (bossY < 390)
                 {
                     bossY += 1;
+                    ctx.drawImage(burnerBoss, bossX + 35 , bossY - 37 , bossWidth/2 - 10, bossHeight/2 - 10);
                 }
             }
         }
     }
     setTimeout(moveY(), 200);   
-    
-    
 }
 
 
@@ -183,7 +182,6 @@ class Asteroid {
 }
 
 // Bullets
-
 let bulletFly = false;
 let reloading = false;
 let bullets = [];
@@ -206,7 +204,6 @@ class Bullet {
         this.y = this.y -2; 
     }
 }
-
 // Score
 let score = 0;
 function drawScore() {
@@ -320,8 +317,6 @@ function animate(){
             bossHealth -= 0.1;
         }
     }
-
-
 
     // Check distance between asteroids and SpaceShip
     Asteroids.forEach(asteroid => {
@@ -444,7 +439,6 @@ function animate(){
         background2Y = -canvas.height;
     }
 
-    
     if (gameOver) {
         cancelAnimationFrame(animationFrameId);
         gameState2.style.display = "none";
@@ -461,7 +455,6 @@ function animate(){
         gameState2.style.display = "none"; 
         gameState4.style.display = "block"; 
     }
-    
 }
 
 function startGame() {
@@ -471,7 +464,6 @@ function startGame() {
     gameState4.style.display = "none";
     animate();
   };
-
 
   window.onload = () => {
     document.getElementById('playBtn').onclick = () => {
@@ -503,8 +495,7 @@ function startGame() {
             {
                 bulletFly = true;
             }
-        }
-        
+        } 
       });
       
       document.addEventListener("keyup", event => {
