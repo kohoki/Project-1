@@ -4,6 +4,7 @@ const ctx = canvas.getContext('2d');
 const gameState1 = document.querySelector("#gameState1");
 const gameState2 = document.querySelector("#gameState2");
 const gameState3 = document.querySelector("#gameState3");
+const gameState4 = document.querySelector("#gameState4");
 
 // background
 const background = new Image();
@@ -59,12 +60,18 @@ let gameOver = false;
 let background1Y = 0;
 let background2Y = -canvas.height;
 
+// Boss
+const boss = new Image();
+boss.src = "../images/boss.png";
+
+
 // Asteroids
 
 let asteroidX = Math.floor(Math.random() * (550 - 10) + 10);
 let asteroidY = -70;
 let asteroidSpeed = 1;
 let Asteroids = [];
+let timeOfAsteroids = 200;
 
 class Asteroid {
     constructor(){
@@ -75,7 +82,7 @@ class Asteroid {
     }
     move()
     {
-        this.y += 1;
+        this.y += asteroidSpeed;
     }
 }
 
@@ -145,10 +152,11 @@ function setValuesToBegin()
     shipSpeed = 1.5;
     asteroidSpeed = 1;
     startTime = 121;
+    timeOfAsteroids = 200;
 }
 
 // timer
-let startTime = 21;
+let startTime = 120;
 function drawTimer()
 {
     ctx.beginPath();
@@ -156,12 +164,31 @@ function drawTimer()
     ctx.fillStyle = "white";
     ctx.fillText(`Timer : ${startTime}s`, canvas.width - 150, 38);
     ctx.closePath();
-    if(animationFrameId % 100 === 0)
+    if(animationFrameId % 140 === 0)
     {
         if (startTime > 0)
         {
             startTime -= 1;
         }
+        if (startTime === 100)
+        {
+            asteroidSpeed = 3;
+            timeOfAsteroids = 150;
+        }
+        else if(startTime === 80)
+        {
+            asteroidSpeed = 4;
+            timeOfAsteroids = 100;
+        }
+        else if(startTime === 50)
+        {
+            timeOfAsteroids = 50;
+        }
+        else if(startTime === 30)
+        {
+            timeOfAsteroids = 20;
+        }
+        
     }
 }
 
@@ -211,7 +238,6 @@ function animate(){
             }
     });
     
-
     const nextBullet = bullets.filter(element => element.y > 0 && element.life);
     
     if(bulletFly)
@@ -273,7 +299,7 @@ function animate(){
 
     let Asteroids2 = Asteroids.filter(element => element.y < canvas.height && element.life);
 
-    if(animationFrameId % 200 === 0)
+    if(animationFrameId % timeOfAsteroids === 0)
     {
         Asteroids2.push(new Asteroid())
     }
