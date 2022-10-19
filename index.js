@@ -300,6 +300,7 @@ function animate(){
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
     drawScore();
     drawTimer();
+
     // Boss is drawing
     ctx.drawImage(boss, bossX, bossY, bossWidth, bossWidth);
     healthBarBoss ();
@@ -308,13 +309,27 @@ function animate(){
     const nextBulletBoss = bulletsBoss.filter(element => element.y > 0 && element.life);
     if(animationFrameId % 60 === 0)
     {
-        nextBulletBoss.push(new BulletBoss(bossX + 50,bossY + 50));
+        nextBulletBoss.push(new BulletBoss(bossX + 59,bossY + 75));
     }
     nextBulletBoss.forEach(element => {
         element.draw();
         element.move();
         });
     bulletsBoss = nextBulletBoss;
+    //Check distance between bullet (Boss) and SpaceShip
+    
+    bulletsBoss.forEach(bullet => {
+        const distance = Math.hypot(bullet.x  - (shipX + shipWidth/2) , bullet.y - (shipY + shipHeight/2));
+        if (distance < 50)
+        {
+            bullet.life = false;
+            if(barHealth > 0)
+                {
+                    barHealth -= 2;
+                }
+        }
+    });
+
 
     //Check distance between bullet and asteroid and set life to false if needed
     bullets.forEach(bullet => {
@@ -552,6 +567,5 @@ function startGame() {
         if (event.code === "Space"){
                 bulletFly = false;
         } 
-
       });
   };
