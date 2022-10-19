@@ -257,10 +257,18 @@ function setValuesToBegin()
     asteroidSpeed = 1;
     startTime = 121;
     timeOfAsteroids = 200;
+    //
+    bossX = canvas.width / 2 - bossWidth/2;
+    bossY = - 200;
+    BossSpeed = 0.5;
+    bossHealth = 50;
+    colorBarBoss = "green";
+    number = 0;
+    bulletsBoss = [];
 }
 
 // timer
-let startTime = 120;
+let startTime = 120; // 120
 function drawTimer()
 {
     ctx.beginPath();
@@ -301,21 +309,26 @@ function animate(){
     drawScore();
     drawTimer();
 
-    // Boss is drawing
-    ctx.drawImage(boss, bossX, bossY, bossWidth, bossWidth);
-    healthBarBoss ();
-    moveBoss();
-    // Boss is shooting
     const nextBulletBoss = bulletsBoss.filter(element => element.y > 0 && element.life);
-    if(animationFrameId % 60 === 0)
+    // Boss is coming
+    if (startTime === 0)
     {
-        nextBulletBoss.push(new BulletBoss(bossX + 59,bossY + 75));
+        ctx.drawImage(boss, bossX, bossY, bossWidth, bossWidth);
+        healthBarBoss ();
+        moveBoss();
+        // Boss is shooting
+    
+        if(animationFrameId % 60 === 0)
+        {
+            nextBulletBoss.push(new BulletBoss(bossX + 59,bossY + 75));
+        }
+        nextBulletBoss.forEach(element => {
+            element.draw();
+            element.move();
+            });
     }
-    nextBulletBoss.forEach(element => {
-        element.draw();
-        element.move();
-        });
     bulletsBoss = nextBulletBoss;
+    
     //Check distance between bullet (Boss) and SpaceShip
     
     bulletsBoss.forEach(bullet => {
@@ -329,7 +342,6 @@ function animate(){
                 }
         }
     });
-
 
     //Check distance between bullet and asteroid and set life to false if needed
     bullets.forEach(bullet => {
@@ -352,7 +364,7 @@ function animate(){
             bullet.life = false;
             if(bossHealth > 0)
             {
-                bossHealth -= 2.5;
+                bossHealth -= 2.5; // -2.5
             }
         }
     });
@@ -467,19 +479,22 @@ function animate(){
     // Asteroids
 
     let Asteroids2 = Asteroids.filter(element => element.y < canvas.height && element.life);
-
-    if(animationFrameId % timeOfAsteroids === 0)
-    {
-        Asteroids2.push(new Asteroid())
-    }
     
-    Asteroids2.forEach(element => {
-        ctx.drawImage(asteroid, element.x, element.y, 60, 60);
-        asteroid.src = asteroidArray[1];
-        element.move();
-    });
-
+     if(startTime > 1)
+     {
+        if(animationFrameId % timeOfAsteroids === 0)
+        {
+            Asteroids2.push(new Asteroid())
+        }
+        Asteroids2.forEach(element => {
+            ctx.drawImage(asteroid, element.x, element.y, 60, 60);
+            asteroid.src = asteroidArray[1];
+            element.move();
+        });
+     }
     Asteroids = Asteroids2;
+     
+    
     
     // Sky is moving
     background1Y += 1.5
@@ -501,7 +516,7 @@ function animate(){
         animationFrameId = requestAnimationFrame(animate);
     }
 
-    if(startTime === 0)
+    if(bossHealth === 0)
     {
         cancelAnimationFrame(animationFrameId);
         gameState2.style.display = "none"; 
