@@ -54,6 +54,22 @@ let isShipGoingUp = false;
 let isShipGoingDown = false;
 let shipSpeed = 1.5;
 
+// Health bar SpaceShip
+let barHealth = 50;
+let colorBar = "green";
+function healthBar () {
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = colorBar;
+    ctx.rect(shipX + shipWidth + 5, shipY + 50, 10, 50);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.fillStyle = colorBar;
+    ctx.fillRect(shipX + shipWidth + 5, shipY + 50, 10, barHealth);
+    ctx.stroke();
+}
+
 // 
 let animationFrameId = 0;
 let gameOver = false;
@@ -63,6 +79,28 @@ let background2Y = -canvas.height;
 // Boss
 const boss = new Image();
 boss.src = "../images/boss.png";
+const burnerBoss = new Image();
+burnerBoss.src = "../images/Thruster_boss.png";
+let bossWidth = 120;
+let bossHeight = 130;
+let bossX = canvas.width / 2 - bossWidth/2;
+let bossY = 0;
+
+// Health bar Boss
+let bossHealth = 50;
+let colorBarBoss = "green";
+function healthBarBoss () {
+    ctx.beginPath();
+    ctx.lineWidth = "2";
+    ctx.strokeStyle = colorBarBoss;
+    ctx.rect(bossX + bossWidth - 5, bossY + 50, 10, 50);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.fillStyle = colorBarBoss;
+    ctx.fillRect(bossX + bossWidth - 5, bossY + 50, 10, bossHealth);
+    ctx.stroke();
+}
 
 
 // Asteroids
@@ -121,22 +159,6 @@ function drawScore() {
   ctx.closePath();
 };
 
-// Health
-let barHealth = 50;
-let colorBar = "green";
-function healthBar () {
-    ctx.beginPath();
-    ctx.lineWidth = "2";
-    ctx.strokeStyle = colorBar;
-    ctx.rect(shipX + shipWidth + 5, shipY + 50, 10, 50);
-    ctx.stroke();
-
-    ctx.beginPath();
-    ctx.fillStyle = colorBar;
-    ctx.fillRect(shipX + shipWidth + 5, shipY + 50, 10, barHealth);
-    ctx.stroke();
-}
-
 // reset all Values
 function setValuesToBegin()
 {
@@ -188,7 +210,6 @@ function drawTimer()
         {
             timeOfAsteroids = 20;
         }
-        
     }
 }
 
@@ -198,6 +219,9 @@ function animate(){
     ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
     drawScore();
     drawTimer();
+    // Boss is drawing
+    ctx.drawImage(boss, bossX, bossY, bossWidth, bossWidth);
+    healthBarBoss ();
 
     //Check distance between bullet and asteroid and set life to false if needed
     bullets.forEach(bullet => {
@@ -212,6 +236,34 @@ function animate(){
             }
         });
     });
+    //Check distance between bullet (SpaceShip) and Boss
+    bullets.forEach(bullet => {
+        const distance = Math.hypot(bullet.x  - (bossX + bossWidth/2) , bullet.y - (bossY + bossHeight/2));
+        if (distance < 50)
+        {
+            bullet.life = false;
+            if(bossHealth > 0)
+            {
+                bossHealth -= 2.5;
+            }
+        }
+    });
+    //Check distance between SpaceShip and Boss
+    const distanceShipBoss = Math.hypot((shipX + shipWidth/2)  - (bossX + bossWidth/2) , (shipY + shipHeight/2) - (bossY + bossHeight/2));
+    if (distanceShipBoss < 60)
+    {         
+        if(barHealth > 0)
+        {
+            barHealth -= 0.2;
+        }
+        if(bossHealth > 0)
+        {
+            bossHealth -= 0.1;
+        }
+    }
+
+
+
     // Check distance between asteroids and SpaceShip
     Asteroids.forEach(asteroid => {
         const distanceShip = Math.hypot((asteroid.x + 30) - (shipX + shipWidth/2) , (asteroid.y + 30) - (shipY + shipHeight/2) );
@@ -221,23 +273,34 @@ function animate(){
                 if(barHealth > 0)
                 {
                     barHealth -= 5;
-                    if(barHealth < 30)
-                    {
-                        colorBar = "yellow";
-                    }
-                    if(barHealth < 15)
-                    {
-                        colorBar = "red";
-                    }
-                    // GameOver
-                    if(barHealth === 0)
-                    {
-                        gameOver = true;
-                    }
                 }
             }
     });
+    // check Health
+    if(bossHealth < 30)
+    {
+        colorBarBoss = "yellow";
+    }
+    if(bossHealth < 15)
+    {
+        colorBarBoss = "red";
     
+    }
+    // check Health from Ship
+    if(barHealth < 30)
+    {
+        colorBar = "yellow";
+    }
+    if(barHealth < 15)
+    {
+        colorBar = "red";
+    }
+    // Ship is destroyed - GameOver 
+    if(barHealth <= 0)
+    {
+        gameOver = true;
+    }
+
     const nextBullet = bullets.filter(element => element.y > 0 && element.life);
     
     if(bulletFly)
