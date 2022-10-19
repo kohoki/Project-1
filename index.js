@@ -105,28 +105,34 @@ function healthBarBoss () {
 let number = 0;
 function moveBoss()
 {
+    boss.src = "../images/boss.png";
     if (bossY < 160)
     {
         bossY += 0.5;
+        
     }
     //move X direction
     // let BossYMiddle = bossY + bossHeight/2;
     let BossXMiddle = bossX + bossWidth/2;
     let shipXMiddle = shipX + shipWidth/2;
-
     let XDistanceShipBoss = BossXMiddle - shipXMiddle;
-    if(XDistanceShipBoss < - 5)
+    function moveX()
     {
-        if(BossXMiddle < shipXMiddle)
+        if(XDistanceShipBoss < - 5)
         {
-            bossX += BossSpeed;
+            if(BossXMiddle < shipXMiddle)
+            {
+                bossX += BossSpeed;
+                boss.src = "../images/boss_right.png";
+            }
         }
-    }
-    if(XDistanceShipBoss > 5)
-    {
-        if(BossXMiddle > shipXMiddle)
+        if(XDistanceShipBoss > 5)
         {
-            bossX -= BossSpeed;
+            if(BossXMiddle > shipXMiddle)
+            {
+                bossX -= BossSpeed;
+                boss.src = "../images/boss_left.png";
+            }
         }
     }
     // move Y direction
@@ -134,7 +140,7 @@ function moveBoss()
         {
             number = Math.floor(Math.random() * (3 - 1) + 1)
         }
-    console.log(bossY);
+    //console.log(bossY);
     function moveY(){
         if(bossY > 80 && bossY < 400)
         {
@@ -156,6 +162,8 @@ function moveBoss()
             }
         }
     }
+    
+    setTimeout(moveX(), 200);
     setTimeout(moveY(), 200);   
 }
 
