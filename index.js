@@ -102,6 +102,8 @@ function healthBarBoss () {
     ctx.fillRect(bossX + bossWidth - 5, bossY + 50, 10, bossHealth);
     ctx.stroke();
 }
+
+// the Boss can move and small animation added
 let number = 0;
 function moveBoss()
 {
@@ -109,10 +111,8 @@ function moveBoss()
     if (bossY < 160)
     {
         bossY += 0.5;
-        
     }
     //move X direction
-    // let BossYMiddle = bossY + bossHeight/2;
     let BossXMiddle = bossX + bossWidth/2;
     let shipXMiddle = shipX + shipWidth/2;
     let XDistanceShipBoss = BossXMiddle - shipXMiddle;
@@ -162,11 +162,30 @@ function moveBoss()
             }
         }
     }
-    
     setTimeout(moveX(), 200);
     setTimeout(moveY(), 200);   
 }
-
+// Bullets Boss
+let bulletsBoss = [];
+class BulletBoss {
+    constructor(x,y)
+    {
+        this.x = x;
+        this.y = y;
+        this.life = true;
+    }
+    draw()
+    {
+        ctx.beginPath()
+        ctx.arc(this.x, this.y, 8, 0, Math.PI *2, false);
+        ctx.fillStyle = "blue";
+        ctx.fill();
+    }
+    move()
+    {   
+        this.y = this.y + 2; 
+    }
+}
 
 // Asteroids
 
@@ -275,7 +294,6 @@ function drawTimer()
         }
     }
 }
-
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
@@ -286,6 +304,17 @@ function animate(){
     ctx.drawImage(boss, bossX, bossY, bossWidth, bossWidth);
     healthBarBoss ();
     moveBoss();
+    // Boss is shooting
+    const nextBulletBoss = bulletsBoss.filter(element => element.y > 0 && element.life);
+    if(animationFrameId % 60 === 0)
+    {
+        nextBulletBoss.push(new BulletBoss(bossX + 50,bossY + 50));
+    }
+    nextBulletBoss.forEach(element => {
+        element.draw();
+        element.move();
+        });
+    bulletsBoss = nextBulletBoss;
 
     //Check distance between bullet and asteroid and set life to false if needed
     bullets.forEach(bullet => {
