@@ -26,17 +26,17 @@ You die when you collide with an asteroid.
 
 ## Data structure
 
-function healthBar ()
-function healthBarBoss ()
+- function healthBar ()
+- function healthBarBoss ()
 
 function moveBoss(){
 - function moveX()
 - function moveY()
 }
 
-function drawScore()
-function setValuesToBegin()
-function drawTimer()
+- function drawScore()
+- function setValuesToBegin()
+- function drawTimer()
 
 class Bullet
 - draw()
@@ -49,8 +49,8 @@ class BulletBoss
 class Asteroid
 - move()
 
-function animate()
-function startGame()
+- function animate()
+- function startGame()
 
 ## Gamestates
 
