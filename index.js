@@ -10,34 +10,9 @@ const gameState4 = document.querySelector("#gameState4");
 const background = new Image();
 background.src = "./images/Background01.png"
 
-// asteroid
+// asteroids
 const asteroid = new Image();
-const asteroidArray =[
-    "./images/asteroid/asteroid_01.png",
-    "./images/asteroid/asteroid_02.png",
-    "./images/asteroid/asteroid_03.png",
-    "./images/asteroid/asteroid_04.png",
-    "./images/asteroid/asteroid_05.png",
-    "./images/asteroid/asteroid_06.png",
-    "./images/asteroid/asteroid_07.png",
-    "./images/asteroid/asteroid_08.png",
-    "./images/asteroid/asteroid_09.png",
-    "./images/asteroid/asteroid_10.png",
-    "./images/asteroid/asteroid_11.png",
-    "./images/asteroid/asteroid_12.png",
-    "./images/asteroid/asteroid_13.png",
-    "./images/asteroid/asteroid_14.png",
-    "./images/asteroid/asteroid_15.png",
-    "./images/asteroid/asteroid_16.png",
-    "./images/asteroid/asteroid_17.png",
-    "./images/asteroid/asteroid_18.png",
-    "./images/asteroid/asteroid_19.png",
-    "./images/asteroid/asteroid_20.png",
-    "./images/asteroid/asteroid_21.png",
-    "./images/asteroid/asteroid_22.png",
-    "./images/asteroid/asteroid_23.png",
-    "./images/asteroid/asteroid_24.png",
-];
+asteroid.src = "./images/asteroid_01.png";
 
 // SpaceShip
 const ship = new Image();
@@ -486,7 +461,6 @@ function animate(){
         }
         Asteroids2.forEach(element => {
             ctx.drawImage(asteroid, element.x, element.y, 60, 60);
-            asteroid.src = asteroidArray[1];
             element.move();
         });
      }
