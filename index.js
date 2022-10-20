@@ -5,6 +5,8 @@ const gameState1 = document.querySelector("#gameState1");
 const gameState2 = document.querySelector("#gameState2");
 const gameState3 = document.querySelector("#gameState3");
 const gameState4 = document.querySelector("#gameState4");
+let scoreGameOver = document.querySelector(".score span");
+let scoreWin = document.querySelector(".scoreWin span");
 
 // background
 const background = new Image();
@@ -243,7 +245,7 @@ function setValuesToBegin()
 }
 
 // timer
-let startTime = 120; // 120
+let startTime = 10; // 120
 function drawTimer()
 {
     ctx.beginPath();
@@ -467,7 +469,6 @@ function animate(){
     Asteroids = Asteroids2;
      
     
-    
     // Sky is moving
     background1Y += 1.5
     background2Y += 1.5
@@ -482,6 +483,7 @@ function animate(){
         cancelAnimationFrame(animationFrameId);
         gameState2.style.display = "none";
         gameState3.style.display = "block";
+        scoreGameOver.innerHTML = score;
     } 
     else
     {
@@ -493,6 +495,7 @@ function animate(){
         cancelAnimationFrame(animationFrameId);
         gameState2.style.display = "none"; 
         gameState4.style.display = "block"; 
+        scoreWin.innerHTML = score;
     }
 }
 

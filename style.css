@@ -46,9 +46,19 @@ body {
     background-image: url("images/Menu_Background.png");
     background-size: 600px 900px;
 }
-#gameState3 p {
+
+#gameState3 .over {
     margin-top: 250px;
     font-size: 60px;
+}
+#gameState3 .score {
+    color: aqua;
+    margin-top: 100px;
+    font-size: 20px;
+    letter-spacing: 3px;
+}
+span {
+    font-size: 30px;
 }
 
 #gameState4 {
@@ -64,6 +74,12 @@ body {
 #gameState4 p {
     margin-top: 250px;
     font-size: 60px;
+}
+#gameState4 .scoreWin {
+    color: aqua;
+    margin-top: 100px;
+    font-size: 20px;
+    letter-spacing: 3px;
 }
 
 .logo {
