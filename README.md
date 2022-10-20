@@ -1,22 +1,21 @@
-![logo_of_the_game]()
+![logo_of_the_game](https://github.com/kohoki/Project-1/blob/cbc63bb68e6573db84d56a6eb46c19f7a0a5b98f/images/game_name.png)
 
-# Defender of the Earth
 
 ## Project 1 | The Game | JS - CSS - HTML
 
-### Description:
+## Description:
 
 A top down space shooter game.
 
 You control a spaceship to destroy the asteroids. And in the finale you'll meet the Alien Invasion. 
 Who is apparently not well-disposed towards you.
 
-### MVP
+## MVP
 
 The minimum was destroying the asteroids. And the collection of points. 
 You die when you collide with an asteroid.
 
-### Backlog
+## Backlog
 
 1. a Healthbar - You lose life when you hit an asteroid
 2. A final enemy:
@@ -25,17 +24,19 @@ You die when you collide with an asteroid.
     - Who also has a life indicator
     - you win the game if you defeat him
 
-### Data structure
+## Data structure
 
-function healthBar ()
-function healthBarBoss ()
+- function healthBar ()
+- function healthBarBoss ()
+
 function moveBoss(){
 - function moveX()
 - function moveY()
 }
-function drawScore()
-function setValuesToBegin()
-function drawTimer()
+
+- function drawScore()
+- function setValuesToBegin()
+- function drawTimer()
 
 class Bullet
 - draw()
@@ -48,10 +49,10 @@ class BulletBoss
 class Asteroid
 - move()
 
-function animate()
-function startGame()
+- function animate()
+- function startGame()
 
-### Gamestates
+## Gamestates
 
 There are four different sides.
 
@@ -60,7 +61,7 @@ There are four different sides.
 3. game over screen
 4. winner screen
 
-### Task
+## Task
 
 1. Collecting the images to be used
 2. Create HTML structure 
@@ -75,13 +76,13 @@ In addition, there is a small animation when moving. And the Bonus - the healthb
 10. Timer and score is integrated
 11. Win and loose windows are created
 12. Boss is created - with the same abilities as our hero
-13. Collisions with Boss and Spaceship
+13. Collisions with Boss and Spaceship - and the Bullets
 
-#### Links
+### Links
 
 - [GitHub repository Link](https://github.com/kohoki/Project-1)
 - [Deployment Link](https://kohoki.github.io/Project-1/)
 
 
 
-**Thanks for reading** :smyle:
+**Thanks for reading** 
