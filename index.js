@@ -245,7 +245,7 @@ function setValuesToBegin()
 }
 
 // timer
-let startTime = 10; // 120
+let startTime = 120; // 120
 function drawTimer()
 {
     ctx.beginPath();
