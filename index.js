@@ -8,13 +8,13 @@ const gameState4 = document.querySelector("#gameState4");
 
 // background
 const background = new Image();
-background.src = "/images/Background01.png"
+background.src = "./images/Background01.png"
 
 // asteroid
 const asteroid = new Image();
 const asteroidArray =[
-    "/images/asteroid/asteroid_01.png",
-    "../images/asteroid/asteroid_02.png",
+    "./images/asteroid/asteroid_01.png",
+    "./images/asteroid/asteroid_02.png",
     "../images/asteroid/asteroid_03.png",
     "../images/asteroid/asteroid_04.png",
     "../images/asteroid/asteroid_05.png",
@@ -41,9 +41,9 @@ const asteroidArray =[
 
 // SpaceShip
 const ship = new Image();
-ship.src = "/images/Spaceship.png";
+ship.src = "./images/Spaceship.png";
 const burner = new Image();
-burner.src = "/images/Thruster01.png";
+burner.src = "./images/Thruster01.png";
 let shipWidth = 100;
 let shipHeight = 110;
 let shipX = canvas.width / 2;
@@ -78,9 +78,9 @@ let background2Y = -canvas.height;
 
 // Boss
 const boss = new Image();
-boss.src = "/images/boss.png";
+boss.src = "./images/boss.png";
 const burnerBoss = new Image();
-burnerBoss.src = "/images/Thruster_boss.png";
+burnerBoss.src = "./images/Thruster_boss.png";
 let bossWidth = 120;
 let bossHeight = 130;
 let bossX = canvas.width / 2 - bossWidth/2;
@@ -107,7 +107,7 @@ function healthBarBoss () {
 let number = 0;
 function moveBoss()
 {
-    boss.src = "/images/boss.png";
+    boss.src = "./images/boss.png";
     if (bossY < 160)
     {
         bossY += 0.5;
@@ -123,7 +123,7 @@ function moveBoss()
             if(BossXMiddle < shipXMiddle)
             {
                 bossX += BossSpeed;
-                boss.src = "/images/boss_right.png";
+                boss.src = "./images/boss_right.png";
             }
         }
         if(XDistanceShipBoss > 5)
@@ -131,7 +131,7 @@ function moveBoss()
             if(BossXMiddle > shipXMiddle)
             {
                 bossX -= BossSpeed;
-                boss.src = "/images/boss_left.png";
+                boss.src = "./images/boss_left.png";
             }
         }
     }
@@ -448,7 +448,7 @@ function animate(){
     if (isShipGoingLeft) {
         if (shipX > 0) {
             shipX -=  shipSpeed;
-            ship.src = "../images/Spaceship_left.png";
+            ship.src = "./images/Spaceship_left.png";
         }
     }
     else if (isShipGoingRight)
@@ -456,11 +456,11 @@ function animate(){
         if(shipX < canvas.width - shipWidth)
         {
             shipX +=  shipSpeed;
-            ship.src = "../images/Spaceship_right.png";
+            ship.src = "./images/Spaceship_right.png";
         }
     }
     else if (!isShipGoingLeft) {
-        ship.src = "../images/Spaceship.png";
+        ship.src = "./images/Spaceship.png";
     }
     // Ship is drawing
     ctx.drawImage(ship, shipX, shipY, shipWidth, shipHeight);
