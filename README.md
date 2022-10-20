@@ -1,6 +1,5 @@
 ![logo_of_the_game](https://github.com/kohoki/Project-1/blob/cbc63bb68e6573db84d56a6eb46c19f7a0a5b98f/images/game_name.png)
 
-# Defender of the Earth
 
 ## Project 1 | The Game | JS - CSS - HTML
 
