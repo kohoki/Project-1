@@ -281,8 +281,8 @@ function drawTimer()
 }
 function animate(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height);
-    ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height);
+    ctx.drawImage(background, 0, background1Y, canvas.width, canvas.height + 10);
+    ctx.drawImage(background, 0, background2Y, canvas.width, canvas.height + 10);
     drawScore();
     drawTimer();
 
