@@ -64,7 +64,7 @@ let bossX = canvas.width / 2 - bossWidth/2;
 let bossY = - 200;
 let BossSpeed = 0.5;
 
-// Health bar Boss
+// Healthbar Boss
 let bossHealth = 50;
 let colorBarBoss = "green";
 function healthBarBoss () {
@@ -117,7 +117,7 @@ function moveBoss()
         {
             number = Math.floor(Math.random() * (3 - 1) + 1)
         }
-    //console.log(bossY);
+        
     function moveY(){
         if(bossY > 80 && bossY < 400)
         {
