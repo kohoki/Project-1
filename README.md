@@ -1,20 +1,22 @@
+![logo_of_the_game]()
+
 # Defender of the Earth
 
 ## Project 1 | The Game | JS - CSS - HTML
 
-#### Description:
+### Description:
 
 A top down space shooter game.
 
 You control a spaceship to destroy the asteroids. And in the finale you'll meet the Alien Invasion. 
 Who is apparently not well-disposed towards you.
 
-#### MVP
+### MVP
 
 The minimum was destroying the asteroids. And the collection of points. 
 You die when you collide with an asteroid.
 
-#### Backlog
+### Backlog
 
 1. a Healthbar - You lose life when you hit an asteroid
 2. A final enemy:
@@ -23,7 +25,7 @@ You die when you collide with an asteroid.
     - Who also has a life indicator
     - you win the game if you defeat him
 
-#### Data structure
+### Data structure
 
 function healthBar ()
 function healthBarBoss ()
@@ -49,7 +51,7 @@ class Asteroid
 function animate()
 function startGame()
 
-#### Gamestates
+### Gamestates
 
 There are four different sides.
 
@@ -58,7 +60,7 @@ There are four different sides.
 3. game over screen
 4. winner screen
 
-#### Task
+### Task
 
 1. Collecting the images to be used
 2. Create HTML structure 
@@ -66,7 +68,7 @@ There are four different sides.
 4. Create JS file - create basic functions for a game
 5. create the background to be moved
 6. The spaceship is created. It should appear and move in 8 directions. 
-In addition, there is a small animation when moving.
+In addition, there is a small animation when moving. And the Bonus - the healthbar
 7. Asteroids are created
 8. Bullets are created
 9. Collisions are integrated
@@ -76,3 +78,10 @@ In addition, there is a small animation when moving.
 13. Collisions with Boss and Spaceship
 
 #### Links
+
+- [GitHub repository Link](https://github.com/kohoki/Project-1)
+- [Deployment Link](https://kohoki.github.io/Project-1/)
+
+
+
+**Thanks for reading** :smyle:
