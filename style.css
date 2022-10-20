@@ -83,10 +83,21 @@ span {
 }
 
 .logo {
-    margin-top: 450px;
+    margin-top: 200px;
 }
 
 #logoImage {
     border-radius: 10px;
 }
 
+.mission {
+    color: rgb(212, 199, 55);
+    font-size: 15px;
+    animation: fadeIn 6s;
+    margin-top: 80px;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
