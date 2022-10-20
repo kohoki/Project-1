@@ -28,10 +28,12 @@ You die when you collide with an asteroid.
 
 function healthBar ()
 function healthBarBoss ()
+
 function moveBoss(){
 - function moveX()
 - function moveY()
 }
+
 function drawScore()
 function setValuesToBegin()
 function drawTimer()
