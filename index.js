@@ -178,7 +178,7 @@ class BulletBoss {
     {
         ctx.beginPath()
         ctx.arc(this.x, this.y, 8, 0, Math.PI *2, false);
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = "skyblue";
         ctx.fill();
     }
     move()
@@ -223,7 +223,7 @@ class Bullet {
     {
         ctx.beginPath()
         ctx.arc(this.x, this.y, 8, 0, Math.PI *2, false);
-        ctx.fillStyle = "yellow";
+        ctx.fillStyle =  "orange"; 
         ctx.fill();
     }
     move()
@@ -476,8 +476,6 @@ function animate(){
     // HealthBar is created
     healthBar ();
     
-    // Asteroids
-
     let Asteroids2 = Asteroids.filter(element => element.y < canvas.height && element.life);
     
      if(startTime > 1)
