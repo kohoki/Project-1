@@ -82,6 +82,7 @@ In addition, there is a small animation when moving. And the Bonus - the healthb
 
 - [GitHub repository Link](https://github.com/kohoki/Project-1)
 - [Deployment Link](https://kohoki.github.io/Project-1/)
+- [Slide](https://docs.google.com/presentation/d/1m9d6V-wTnhs2nwvOZTm-7vaZgqw8Z2mFPXcZ82ZltBo/edit?usp=sharing)
 
 
 
